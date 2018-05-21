@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load tz %}
+
+
+{% block jumbotron %}
+  <ul>
+    <h2>
+      <a href="{% url 'model_form_upload' %}">click here to upload a file</a>
+    </h2>
+  </ul>
+
+
+  <form class="form-horizontal"
+        method="post"
+        enctype="multipart/form-data"
+        action="{% url 'home'%}"
+        class="collapse">
+        {% csrf_token %}
+  <p>Select a File to download:</p>
+  <table class="table table-condensed" style="font-size:15px">
+  <thead>
+      <tr>
+        <th></th>
+        <th>Files</th>
+        <th></th>
+
+      </tr>
+  </thead>
+<tbody>
+    {% for obj in documents %}
+      <tr>
+        <td class="action-checkbox"><input type="checkbox" name="file_id" class="action-select" value="{{ obj.id }}"/></td>
+        <td>
+        <a href="{{ obj.document.url }}">{{ obj.document.name }}</a>
+        <small>(Uploaded at: {{ obj.uploaded_at|timezone:"Asia/Kolkata" }})</small>
+      </td>
+
+      <td><button class="btn btn-default btn-sm" name="submit" title="Download file">Download File</span></button></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+   </table>
+{% endblock %}
+</form>
