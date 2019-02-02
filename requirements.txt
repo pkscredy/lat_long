@@ -2,3 +2,5 @@ Django==1.11.2
 XlsxWriter==1.0.5
 xlrd==1.1.0
 requests==2.12.4
+whitenoise==3.2
+gunicorn==19.6.0
